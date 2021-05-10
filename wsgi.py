@@ -1,0 +1,1 @@
+from bandit.app import app

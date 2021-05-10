@@ -1,0 +1,8 @@
+apiVersion:  v1
+kind: Pod
+metadata:
+  name: kubeflow-bandit-wouter
+  namespace: log-replayer
+spec:
+  containers:
+  - image: radial/busyboxplus:curl
