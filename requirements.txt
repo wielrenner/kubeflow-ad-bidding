@@ -1,0 +1,6 @@
+Flask
+pytest
+PyYAML
+numpy
+redis
+gunicorn
