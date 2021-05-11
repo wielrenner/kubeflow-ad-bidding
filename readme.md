@@ -1,6 +1,10 @@
 # Kubeflow Bandit
 https://github.com/wielrenner/kubeflow-bandit
 
+## Updating requirements
+- pip install pip-tools
+- pip compile
+
 ## Building the container
 - docker login
 - docker build . -t wroosmalen/kubeflow-bandit:tagname
