@@ -1,4 +1,5 @@
 import yaml
+import os
 
 from flask import Flask, jsonify, request
 from redis import Redis
@@ -16,7 +17,7 @@ with open('config.yml') as f:
     config = yaml.load(f)
 
 # make the global state object for the app
-redis = Redis(host="kubeflow-bandit-redis", decode_responses=True)
+redis = Redis(host=os.environ['REDIS-HOST'], decode_responses=True)
 casino = Casino(
     bandits=bandits,
     passwords=config["passwords"],
