@@ -11,7 +11,7 @@ https://github.com/wielrenner/kubeflow-bandit
 - docker push wroosmalen/kubeflow-bandit:tagname
 
 ## Deploying the app
-- kubectl apply -f kubeflow-bandit.yaml -n log-replayer
+- kubectl apply -f add-bidding.yaml -n log-replayer
 
 ## Getting IP of the app
 - kubectl get pods -n log-replayer -o wide

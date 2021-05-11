@@ -1,1 +1,1 @@
-from app import create_app
+from bandit.app import create_app

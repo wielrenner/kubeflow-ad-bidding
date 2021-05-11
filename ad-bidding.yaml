@@ -64,5 +64,5 @@ spec:
         logger:
           mode: all
         container:
-          image: mbrouns/custom-kfserving-test:0.2
+          image: wroosmalen/kubeflow-bandit:0.08
           name: kfserving-container
