@@ -1,4 +1,5 @@
 import yaml
+import os
 
 from flask import Flask, jsonify, request
 from redis import Redis
