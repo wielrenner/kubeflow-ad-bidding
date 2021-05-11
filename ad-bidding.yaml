@@ -64,5 +64,5 @@ spec:
         logger:
           mode: all
         container:
-          image: wroosmalen/kubeflow-bandit:0.08
+          image: wroosmalen/kubeflow-bandit:0.10
           name: kfserving-container
