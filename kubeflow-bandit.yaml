@@ -4,6 +4,26 @@ metadata:
   name: kubeflow-bandit-wouter
   namespace: log-replayer
 spec:
+  volumes:
+    - name: data
+      emptyDir: {}
   containers:
-    - name: kubeflow-bandit
-      image: wroosmalen/kubeflow-bandit:0.01
+  - name: kubeflow-bandit
+    image: wroosmalen/kubeflow-bandit:0.02
+  - name: kubeflow-bandit-redis
+    image: redis:6.2.3
+    command:
+    - redis-server
+    env:
+    - name: redis-IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+    ports:
+    - containerPort: 6379
+    resources:
+      limits:
+        cpu: "0.1"
+    volumeMounts:
+    - mountPath: /redis-data
+      name: data

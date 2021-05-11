@@ -16,7 +16,7 @@ with open('config.yml') as f:
     config = yaml.load(f)
 
 # make the global state object for the app
-redis = Redis(host="redis", decode_responses=True)
+redis = Redis(host=os.environ['redis-IP'], decode_responses=True)
 casino = Casino(
     bandits=bandits,
     passwords=config["passwords"],
