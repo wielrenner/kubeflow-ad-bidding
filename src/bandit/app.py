@@ -10,12 +10,12 @@ def create_app():
     """App factory pattern"""
     app = Flask(__name__)
 
-    @app.route('/v1/models/custom')
-    def readiness():
+    @app.route('/v1/models/<model>')
+    def readiness(model):
         return {"name": "custom", "ready": True, "version": os.environ.get("VERSION")}
 
-    @app.route("/v1/models/custom:predict", methods=["post"])
-    def predict():
+    @app.route("/v1/models/<model>:predict", methods=["post"])
+    def predict(model):
         data = request.data
         app.logger.info("predicting on %s", data)
         coefs = np.array([3, 4])
