@@ -16,3 +16,5 @@ kubectl get pods -n log-replayer -o wide
 kubectl logs kubeflow-bandit-wouter -n log-replayer kubeflow-bandit-wouter
 pip install httpie
 http http://192.168.3.167:8080
+
+![inline](images/overview.png)
