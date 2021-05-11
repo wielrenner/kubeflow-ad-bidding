@@ -7,6 +7,6 @@ setup(
     name='kubeflow-bandit',
     packages=find_packages(where='src'),
     package_dir={"": "src"},
-    install_requires=["Flask", "pytest", "PyYAML", "numpy", "redis", "gunicorn"],
+    install_requires=["Flask", "numpy", "gunicorn"],
     description='',
 )
