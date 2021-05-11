@@ -50,7 +50,7 @@ spec:
   template:
     spec:
       containers:
-      - image: mbrouns/event_sink:v1
+      - image: mbrouns/event_reply:v1
 ---
 apiVersion: serving.kubeflow.org/v1alpha2
 kind: InferenceService
@@ -58,11 +58,15 @@ metadata:
   name: kubeflow-bandit-model-wouter-service
   namespace: log-replayer
 spec:
+  channel:
+    apiVersion: messaging.knative.dev/v1beta1
+    kind: InMemoryChannel
+    name: forward-channel-wouter
   default:
     predictor:
       custom:
         logger:
           mode: all
         container:
-          image: wroosmalen/kubeflow-bandit:0.10
+          image: wroosmalen/kubeflow-bandit:0.11
           name: kfserving-container
