@@ -20,7 +20,7 @@ def create_app(model):
         data = request.data
         app.logger.info("predicting on %s", data)
         coefs = np.array([3, 4])
-        return {"predictions": coefs}
+        return {"predictions": coefs.tolist()}
 
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers

@@ -67,7 +67,7 @@ spec:
         logger:
           mode: all
         container:
-          image: wroosmalen/kubeflow-ad-bidding:0.13
+          image: wroosmalen/kubeflow-ad-bidding:0.15
           name: kfserving-container
           env:
           - name: MODEL_STORAGE_PATH
