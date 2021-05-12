@@ -1,67 +1,66 @@
 apiVersion: messaging.knative.dev/v1beta1
+kind: InMemoryChannel
+metadata:
+  name: wr-fw-channel
+  namespace: log-replayer
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: wr-reply-service
+  namespace: log-replayer
+spec: 
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+    spec:
+      containers:
+      - image: mbrouns/event_reply:v1
+---
+apiVersion: messaging.knative.dev/v1beta1
 kind: Subscription
 metadata:
-  name: kubeflow-bandit-wouter-subscription
+  name: wr-ad-channel-subscription
   namespace: log-replayer
 spec:
   channel:
     apiVersion: messaging.knative.dev/v1beta1
-    kind: InMemoryChannel
+    kind: Channel
     name: ad-channel
   subscriber:
     ref:
       apiVersion: serving.knative.dev/v1
       kind: Service
-      name: kubeflow-bandit-wouter-service
+      name: wr-reply-service
   reply:
     ref:
       apiVersion: messaging.knative.dev/v1beta1
       kind: InMemoryChannel
-      name: forward-channel-wouter
----
-apiVersion: messaging.knative.dev/v1beta1
-kind: InMemoryChannel
-metadata:
-  name: forward-channel-wouter
-  namespace: log-replayer
+      name: wr-fw-channel
 ---
 apiVersion: messaging.knative.dev/v1beta1
 kind: Subscription
 metadata:
-  name: kubeflow-bandit-model-wouter-subscription
+  name: wr-fw-channel-inferenceservice-subscription
   namespace: log-replayer
 spec:
   channel:
     apiVersion: messaging.knative.dev/v1beta1
     kind: InMemoryChannel
-    name: forward-channel-wouter
+    name: wr-fw-channel
   subscriber:
     ref:
       apiVersion: serving.kubeflow.org/v1alpha2
       kind: InferenceService
-      name: kubeflow-bandit-model-wouter-service
----
-apiVersion: serving.knative.dev/v1
-kind: Service
-metadata:
-  name: kubeflow-bandit-wouter-service
-  namespace: log-replayer
-spec: 
-  template:
-    spec:
-      containers:
-      - image: mbrouns/event_reply:v1
+      name: wr-inferenceservice
 ---
 apiVersion: serving.kubeflow.org/v1alpha2
 kind: InferenceService
 metadata:
-  name: kubeflow-bandit-model-wouter-service
+  name: wr-inferenceservice
   namespace: log-replayer
 spec:
-  channel:
-    apiVersion: messaging.knative.dev/v1beta1
-    kind: InMemoryChannel
-    name: forward-channel-wouter
   default:
     predictor:
       custom:
@@ -70,3 +69,33 @@ spec:
         container:
           image: wroosmalen/kubeflow-bandit:0.11
           name: kfserving-container
+---
+apiVersion: messaging.knative.dev/v1beta1
+kind: Subscription
+metadata:
+  name: wr-fw-channel-sink-subscription
+  namespace: log-replayer
+spec:
+  channel:
+    apiVersion: messaging.knative.dev/v1beta1
+    kind: InMemoryChannel
+    name: wr-fw-channel
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: wr-sink
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: wr-sink
+  namespace: log-replayer
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+    spec:
+      containers:
+      - image: mbrouns/event_sink:v1

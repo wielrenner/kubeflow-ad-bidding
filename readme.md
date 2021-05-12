@@ -20,6 +20,3 @@ https://github.com/wielrenner/kubeflow-bandit
 - kubectl logs kubeflow-bandit-wouter -n log-replayer kubeflow-bandit-wouter
 - pip install httpie
 - http http://192.168.3.167:8080
-
-## Overview image
-![inline](images/overview.png)
