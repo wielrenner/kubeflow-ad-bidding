@@ -69,6 +69,9 @@ spec:
         container:
           image: wroosmalen/kubeflow-ad-bidding:0.12
           name: kfserving-container
+          env:
+          - name: MODEL_STORAGE_PATH
+            value: model.pickl
 ---
 apiVersion: messaging.knative.dev/v1beta1
 kind: Subscription

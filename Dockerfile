@@ -5,6 +5,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+COPY model/model.pickl .
+
 COPY . .
 RUN pip install -e .
 
