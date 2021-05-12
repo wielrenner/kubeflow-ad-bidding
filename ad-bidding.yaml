@@ -67,7 +67,7 @@ spec:
         logger:
           mode: all
         container:
-          image: wroosmalen/kubeflow-bandit:0.11
+          image: wroosmalen/kubeflow-ad-bidding:0.12
           name: kfserving-container
 ---
 apiVersion: messaging.knative.dev/v1beta1
